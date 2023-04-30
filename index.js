@@ -21,9 +21,51 @@ module.exports = new function(){
         return args;
     };
 
+    this.getArgsOption = function(){
+        
+        var options = {
+            _any : [],
+        };
+
+        var field = null;
+        for(var n = 0 ; n < args.length ; n++){
+            var a = args[n];
+
+            if(a.indexOf("--") === 0){
+                if(field){
+                    options[field] = true;
+                }
+                field = a.substring(2);
+            }
+            else{
+                if(!field){
+                    options._any.push(a);
+                    continue;
+                }
+                options[field] = a;
+                field = null;
+            }
+        }
+
+        return options;
+    };
+
     this.indent = function(indent){
         _indent = indent;
         return this;
+    };
+
+    this.color = function(string, red, green, blue){
+        this.out("\x1b[38;2;" + red + ";" + green + ";" + blue + "m" + string + "\x1b[39m");
+        return this;
+    };
+
+    this.red = function(string){
+        return this.color(string, 255, 20, 20);
+    };
+
+    this.green = function(string){
+        return this.color(string, 20, 255, 20);
     };
 
     this.out = function(string){
