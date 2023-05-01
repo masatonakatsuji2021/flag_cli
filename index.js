@@ -47,6 +47,10 @@ module.exports = new function(){
             }
         }
 
+        if(field){
+            options[field] = true;
+        }
+
         return options;
     };
 
@@ -66,6 +70,10 @@ module.exports = new function(){
 
     this.green = function(string){
         return this.color(string, 20, 255, 20);
+    };
+
+    this.yellow = function(string){
+        return this.color(string, 255,255,15);
     };
 
     this.out = function(string){
