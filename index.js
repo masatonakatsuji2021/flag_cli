@@ -106,7 +106,7 @@ module.exports = new function(){
         });
 
         return new Promise(function(resolve){
-            readInterface.question(string + ":", function(input){
+            readInterface.question(getIndentSpace() + string + " :", function(input){
                 readInterface.close();
                 resolve(input);
             });
