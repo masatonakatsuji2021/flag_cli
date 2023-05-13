@@ -1,5 +1,9 @@
 const readline = require('readline');
 
+class FlagCLI{
+
+}
+
 module.exports = new function(){
 
     var cwd = process.cwd();
@@ -76,22 +80,26 @@ module.exports = new function(){
         return this.color(string, 255,255,15);
     };
 
-    this.out = function(string){
+    this.out = function(string, noIndent){
         
         if(string == undefined){
             string = "";
         }
         
-        process.stdout.write(getIndentSpace() + string);
+        if(!noIndent){
+            string = getIndentSpace() + string;
+        }
+
+        process.stdout.write(string);
         return this;
     };
 
-    this.outn = function(string){
+    this.outn = function(string, noIndent){
                 
         if(string == undefined){
             string = "";
         }
-        return this.out(string + "\n");
+        return this.out(string + "\n", noIndent);
     };
 
     this.in = function(string){
@@ -113,5 +121,35 @@ module.exports = new function(){
         });
     };
 
+    this.outData = function(data){
+
+        var c = Object.keys(data);
+
+        var maxKeyLength = 0;
+
+        for(var n = 0 ; n < c.length ; n++){
+            var key = c[n];
+            if(maxKeyLength < key.length){
+                maxKeyLength = key.length;
+            }
+        }
+
+        this.outn();
+
+        for(var n = 0 ; n < c.length ; n++){
+            var key = c[n];
+            var val = data[key];
+            if(typeof val == "boolean"){
+                val = val.toString();
+            }
+            val = val.split("\n").join("\n".padEnd(_indent + maxKeyLength + 4));
+
+            this.outn(key.padEnd(maxKeyLength) + " : " + val);
+        }
+
+        this.outn();
+
+        return this;
+    }
 
 };
