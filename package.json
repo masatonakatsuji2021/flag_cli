@@ -1,5 +1,5 @@
 {
-    "name":"@flag/cli",
+    "name":"@flagfw/cli",
     "description":"A web framework for the client side that can deploy spa (single-page-action) simply and quickly. Core library for console.",
     "author": "masato nakatsuji",
     "version":"1.0.0"

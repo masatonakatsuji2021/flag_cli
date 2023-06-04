@@ -1,12 +1,7 @@
 const readline = require('readline');
 
-class FlagCLI{
-
-}
-
 module.exports = new function(){
 
-    var cwd = process.cwd();
     var args = process.argv;
     var _indent = 0;
 
@@ -139,7 +134,7 @@ module.exports = new function(){
         for(var n = 0 ; n < c.length ; n++){
             var key = c[n];
             var val = data[key];
-            if(typeof val == "boolean"){
+            if(typeof val != "string"){
                 val = val.toString();
             }
             val = val.split("\n").join("\n".padEnd(_indent + maxKeyLength + 4));
